@@ -1,0 +1,5 @@
+Microsoft.NET.Test.Sdk
+Microsoft.AspNetCore.TestHost
+xunit
+xunit.runner.visualstudio
+FSharp.Core

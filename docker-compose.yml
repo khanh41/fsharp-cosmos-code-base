@@ -1,0 +1,6 @@
+﻿services:
+  fsharp.azurecosmosdb:
+    image: fsharp.azurecosmosdb
+    build:
+      context: .
+      dockerfile: Dockerfile
