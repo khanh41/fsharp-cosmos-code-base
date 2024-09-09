@@ -1,23 +1,14 @@
 module Fsharp.Giraffe.AzureCosmos.Models.AuthModels
 
 open System
+open System.ComponentModel.DataAnnotations
 
-type User = { Username: string; Password: string }
-
-type Token =
-    { Value: string
-      Expiry: DateTimeOffset }
-
-type AuthResponse = { Token: Token; User: User }
-
-type AuthError = { Message: string }
-
-type AuthResult =
-    | Success of AuthResponse
-    | Error of AuthError
-
-type AuthRequest =
-    {
-
+[<CLIMutable>]
+type RegisterModel =
+    { [<Key>]
       Username: string
-      Password: string }
+      Password: string
+      Email: string }
+
+[<CLIMutable>]
+type LoginModel = { Username: string; Password: string }

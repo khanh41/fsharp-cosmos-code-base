@@ -8,7 +8,7 @@ open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
-open HelloHandlers
+open Handlers.HelloHandlers
 
 // ---------------------------------
 // Web app
