@@ -6,20 +6,36 @@
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
+
   <ItemGroup>
-    <Compile Include="Models.fs" />
-    <Compile Include="HttpHandlers.fs" />
-    <Compile Include="Program.fs" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="appsettings.Local.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <None Include="web.config" CopyToOutputDirectory="PreserveNewest" />
     <None Include="paket.references" />
     <Compile Include="Models\AuthModels.fs" />
     <Compile Include="Models\CosmosDbModels.fs" />
-    <Folder Include="Handlers\" />
+    <Compile Include="Models\MessageModels.fs" />
+    <Compile Include="Handlers\HelloHandlers.fs" />
     <Compile Include="Config\Settings.fs" />
     <Compile Include="Middleware\AuthMiddleware.fs" />
     <Compile Include="Repositories\CosmosDbRepository.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
+
+  <ItemGroup>
+    <Compile Include="Program.fs" />
+  </ItemGroup>
 </Project>

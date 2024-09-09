@@ -3,3 +3,4 @@ Microsoft.AspNetCore.TestHost
 xunit
 xunit.runner.visualstudio
 FSharp.Core
+Microsoft.Azure.Cosmos

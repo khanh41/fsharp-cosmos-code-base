@@ -1,4 +1,4 @@
-namespace Fsharp.Giraffe.AzureCosmos.Models
+module Fsharp.Giraffe.AzureCosmos.Models.MessageModels
 
 [<CLIMutable>]
 type Message =
