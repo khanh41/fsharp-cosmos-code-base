@@ -2,9 +2,13 @@ storage: none
 framework: auto-detect
 source https://api.nuget.org/v3/index.json
 
+nuget FSharp.Quotations.Evaluator
 nuget Giraffe ~> 6.4.0
+nuget Microsoft.AspNetCore.Authentication.JwtBearer
 nuget Microsoft.Azure.Cosmos
 nuget Microsoft.NET.Test.Sdk
 nuget Microsoft.AspNetCore.TestHost
+nuget Swashbuckle.AspNetCore
+nuget TaskBuilder.fs
 nuget xunit
 nuget xunit.runner.visualstudio

@@ -5,8 +5,8 @@
     <AssemblyName>Fsharp.Giraffe.AzureCosmos</AssemblyName>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Include="appsettings.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -28,14 +28,17 @@
     <Compile Include="Models\AuthModels.fs" />
     <Compile Include="Models\CosmosDbModels.fs" />
     <Compile Include="Models\MessageModels.fs" />
+    <Compile Include="Models\UserModel.fs" />
+    <Compile Include="Service\AuthService.fs" />
     <Compile Include="Handlers\HelloHandlers.fs" />
+    <Compile Include="Handlers\ManagerAdmin.fs" />
     <Compile Include="Config\Settings.fs" />
+    <Compile Include="Config\SwaggerDocument.fs" />
     <Compile Include="Middleware\AuthMiddleware.fs" />
     <Compile Include="Repositories\CosmosDbRepository.fs" />
   </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
-
   <ItemGroup>
     <Compile Include="Program.fs" />
   </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

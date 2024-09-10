@@ -5,10 +5,25 @@ open System.ComponentModel.DataAnnotations
 
 [<CLIMutable>]
 type RegisterModel =
+    // Register User Model
     { [<Key>]
       Username: string
       Password: string
-      Email: string }
+      Email: string
+    }
+    
+    
+[<CLIMutable>]
+type LoginModel =
+    // Login User Model
+    {
+        Username: string
+        Password: string
+    }
 
 [<CLIMutable>]
-type LoginModel = { Username: string; Password: string }
+type LoginSuccessfulModel =
+    // Login Successful Model
+    {
+        Token: string
+    }

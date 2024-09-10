@@ -7,8 +7,12 @@ open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
+open Microsoft.OpenApi.Models
 open Giraffe
+
 open Handlers.HelloHandlers
+open Handlers.ManagerAdmin
+open Config.SwaggerDocument
 
 // ---------------------------------
 // Web app
@@ -16,7 +20,8 @@ open Handlers.HelloHandlers
 
 let webApp =
     choose
-        [ subRoute "/api" (choose [ GET >=> choose [ route "/hello" >=> handleGetHello ] ])
+        [ subRoute "/user" (choose [ POST >=> route "/login" >=> handleLogin ])
+          subRoute "/api" (choose [ GET >=> route "/hello" >=> verifyToken >=> handleGetHello ])
           setStatusCode 404 >=> text "Not Found" ]
 
 // ---------------------------------
@@ -45,11 +50,57 @@ let configureApp (app: IApplicationBuilder) =
      | true -> app.UseDeveloperExceptionPage()
      | false -> app.UseGiraffeErrorHandler(errorHandler).UseHttpsRedirection())
         .UseCors(configureCors)
+        .UseSwagger()
+        .UseSwaggerUI(fun c ->
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1")
+            c.RoutePrefix <- ""
+        )
         .UseGiraffe(webApp)
 
 let configureServices (services: IServiceCollection) =
     services.AddCors() |> ignore
     services.AddGiraffe() |> ignore
+    
+    services.AddMvcCore() |> ignore
+    services.AddEndpointsApiExplorer() |> ignore
+    
+    services.AddSwaggerGen(fun c ->
+    // Định nghĩa tài liệu Swagger
+    c.SwaggerDoc("v1", OpenApiInfo(Title = "My API", Version = "v1"))
+    
+    // Cấu hình bảo mật cho Swagger
+    c.AddSecurityDefinition("Bearer", 
+        OpenApiSecurityScheme(
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            Scheme = "Bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\""
+        )
+    )
+
+    // Cấu hình yêu cầu bảo mật
+    let securitySchemeReference = OpenApiReference(
+        Id = "Bearer",
+        Type = ReferenceType.SecurityScheme
+    )
+
+    let securityRequirement = OpenApiSecurityRequirement()
+    let requiredScopes = System.Collections.Generic.List<string>() :> System.Collections.Generic.IList<string>
+    securityRequirement.Add(
+        OpenApiSecurityScheme(
+            Reference = securitySchemeReference
+        ), 
+        requiredScopes
+    )
+
+    c.AddSecurityRequirement(securityRequirement)
+
+    // Đăng ký bộ lọc tài liệu tùy chỉnh để thêm các điểm cuối Giraffe
+    c.DocumentFilter<GiraffeEndpointDocumentFilter>()
+    ) |> ignore
+
 
 let configureLogging (builder: ILoggingBuilder) =
     builder.AddConsole().AddDebug() |> ignore

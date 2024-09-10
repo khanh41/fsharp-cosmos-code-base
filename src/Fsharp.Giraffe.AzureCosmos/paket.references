@@ -1,2 +1,5 @@
 Giraffe
 Microsoft.Azure.Cosmos
+Swashbuckle.AspNetCore
+Microsoft.AspNetCore.Authentication.JwtBearer
+System.IdentityModel.Tokens.Jwt
